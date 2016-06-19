@@ -95,10 +95,9 @@ var triangleRight = function (size) {
 // Функция рисования равностороннего треугольника
 var triangleEqual = function (size) {
   var output = '';
-  var steps = Math.ceil(size / 2);
-  for( var i = 0; i < steps; i++ ) {
-    for( var j = -steps + 1; j <= i; j++) {
-      if ((Math.abs(j) == i) || (i == steps - 1)) {
+  for( var i = 0; i < size; i++ ) {
+    for( var j = -size + 1; j <= i; j++) {
+      if ((Math.abs(j) == i) || (i == size - 1)) {
         output += "*";
       } else {
         output += " ";
@@ -109,49 +108,30 @@ var triangleEqual = function (size) {
   return output;
 }
 
-
 // Функция рисования ромба
-var rhombus = function (size) {
+var rhombus = function (side) {
   var output = '';
-  var middle = Math.floor(size / 2);
-  for( var i = -middle; i <= middle; i++) {
-    var stars = size - (Math.abs(i)*2);
-    output += renderLine(stars, size);
-  }
-
-  function renderLine ( stars, size ) {
-    var sides = Math.floor((size - stars) / 2);
-    var output = '';
-
-    output += renderSide(sides);
-    output += renderStar(stars);
-    output += renderSide(sides);
-    // console.log(output);
-    return output + "\n";
-
-    function renderStar(stars) {
-      var output = '';
-      for ( var i = 0; i < stars; i++ ) {
+  var steps = side * 2 - 1;
+  for( var i = -side + 1; i < side; i++ ) {
+    for( var j = -side + 1; j < steps - Math.abs(i); j++) {
+      if (Math.abs(j) == side - Math.abs(i) - 1) {
         output += "*";
-      }
-      return output;
-    }
-
-    function renderSide (size) {
-      var output = '';
-      for ( var i = 0; i < size; i++ ) {
+      } else {
         output += " ";
       }
-      return output;
     }
+    output += "\n";
   }
+
   return output;
 }
+
+
 console.log("[ Задача 3 ]");
 console.log(drawRectangle(3,30));
 console.log(triangleRight(10));
 console.log(triangleEqual(9));
-console.log(rhombus(3)); //check for minimal value
+console.log(rhombus(10)); //check for minimal value
 
 // todo
 // check for minimal value triangleEqual and rhombus;
