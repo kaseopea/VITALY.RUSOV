@@ -1,3 +1,4 @@
+"use strict";
 // ------------------------------------------------------------------------------------------------------------
 // task 1
 // Дано два числа A и B где (A<B).
@@ -29,8 +30,9 @@ console.log("\n\n");
 
 // ------------------------------------------------------------------------------------------------------------
 // Task 2
-// Напишите программу, которая будет рассчитывать и выводить на экран количество возможных вариантов доставки товара. Для решения задачи, используйте факториал N!, рассчитываемый с помощью цикла do-while .
-//
+// Напишите программу, которая будет рассчитывать и выводить на экран количество возможных вариантов доставки товара.
+// Для решения задачи, используйте факториал N!, рассчитываемый с помощью цикла do-while .
+
 var possibleDeliveryOptions = function (number) {
   var factorial = 1;
   var counter = number;
@@ -130,10 +132,5 @@ var rhombus = function (side) {
 console.log("[ Задача 3 ]");
 console.log(drawRectangle(3,30));
 console.log(triangleRight(10));
-console.log(triangleEqual(9));
-console.log(rhombus(10)); //check for minimal value
-
-// todo
-// check for minimal value triangleEqual and rhombus;
-// optimize output
-// try to make function where right triangle has different sizes
+console.log(triangleEqual(5));
+console.log(rhombus(5));
