@@ -95,12 +95,13 @@ var triangleRight = function (size) {
 // Функция рисования равностороннего треугольника
 var triangleEqual = function (size) {
   var output = '';
-  for( var i = (size / 2) + 1; i <= size; i++ ) {
-    for( var j = 0; j <= i; j++) {
-      if ( j < size - i + 1) {
-        output += " ";
-      } else {
+  var steps = Math.ceil(size / 2);
+  for( var i = 0; i < steps; i++ ) {
+    for( var j = -steps + 1; j <= i; j++) {
+      if ((Math.abs(j) == i) || (i == steps - 1)) {
         output += "*";
+      } else {
+        output += " ";
       }
     }
     output += "\n";
@@ -149,7 +150,7 @@ var rhombus = function (size) {
 console.log("[ Задача 3 ]");
 console.log(drawRectangle(3,30));
 console.log(triangleRight(10));
-console.log(triangleEqual(11));
+console.log(triangleEqual(9));
 console.log(rhombus(3)); //check for minimal value
 
 // todo
