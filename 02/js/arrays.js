@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // ------------------------------------------------------------------------------------------------------------
 // Task 1
 // Требуется: Создать массив размерностью N элементов, заполнить его произвольными целыми значениями.
@@ -7,7 +7,8 @@
 
 var randomArray = function (size) {
   var array = [];
-  for (var i = 0 ; i < size; i++) {
+  var arraySize = size || 10;
+  for (var i = 0 ; i < arraySize; i++) {
     array.push(Math.floor( -10 + Math.random() * 20));
   }
   return {
@@ -53,8 +54,9 @@ console.log("Среднее арифметическое всех элемент
 console.log("Нечетные номера: " + myArray.oddNumbers().toString());
 
 
-
 console.log("\n\n");
+
+
 // ------------------------------------------------------------------------------------------------------------
 // Tasks 2
 // Требуется: Создать двумерный массив элементов размерностью 5х5 и заполнить его произвольными целочисленными значениями.
@@ -62,9 +64,10 @@ console.log("\n\n");
 
 var multiArray = function(size) {
   var array = [];
-  for ( var i = 0; i < size; i++ ) {
+  var arraySize = size || 5;
+  for ( var i = 0; i < arraySize; i++ ) {
     var arr = [];
-    for ( var j = 0; j < size; j++) {
+    for ( var j = 0; j < arraySize; j++) {
       arr.push(Math.round(-100 + Math.random() * 200));
     }
     array.push(arr);
@@ -74,13 +77,13 @@ var multiArray = function(size) {
 
 function processArray(array) {
   var arr = array;
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
       arr[i][i] = (arr[i][i] <= 0) ?  0 : 1;
     }
     return arr;
 }
 
 console.log("[ Задача 2 ]");
+
 var array = multiArray(5);
 console.log(processArray(array));
-console.log(array);

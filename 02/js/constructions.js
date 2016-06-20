@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // ------------------------------------------------------------------------------------------------------------
 // task 1
 // Дано два числа A и B где (A<B).
@@ -7,24 +7,33 @@
 
 var sumRange = function (start, end) {
   var sum = 0;
-  for ( var i = start; i <= end; i++) {
-    sum += i;
+  if (start && end && (start < end)) {
+    for ( var i = start; i <= end; i++) {
+      sum += i;
+    }
+  } else {
+    return "Введите корректные данные";
   }
   return sum;
 }
 
 var oddNumbersRange = function (start, end) {
   var numbers = [];
-  var first = ( start % 2 == 0 ) ? (start + 1) : (start);
-  for ( var i = first; i <= end; i += 2) {
-    numbers.push(i);
+  if (start && end && (start < end)) {
+    var first = ( start % 2 == 0 ) ? (start + 1) : (start);
+    for ( var i = first; i <= end; i += 2) {
+      numbers.push(i);
+    }
+  } else {
+    return "Введите корректные данные";
   }
+
   return numbers.toString();
 }
 
 console.log("[ Задача 1 ]");
-console.log("Сумма чисeл в диапазоне [10..20] - " + sumRange(10,20));
-console.log("Нечетные числа в диапазоне [10..20] - " + oddNumbersRange(10,20));
+console.log("Сумма чисeл в диапазоне [10..30] - " + sumRange(10,30));
+console.log("Нечетные числа в диапазоне [10..20] - " + oddNumbersRange(-10,10));
 
 console.log("\n\n");
 
@@ -35,7 +44,7 @@ console.log("\n\n");
 
 var possibleDeliveryOptions = function (number) {
   var factorial = 1;
-  var counter = number;
+  var counter = number || 1;
   do {
       if (counter == 0) {
           break;
@@ -65,9 +74,11 @@ console.log("\n\n");
 // Функция рисования прямоугольника
 var drawRectangle = function (width, height) {
   var output = '';
-  for ( var i = 0; i < width; i++) {
-    for ( var j = 0; j < height; j++) {
-      if ( (i == 0) || (i == width - 1) || (j == 0) || (j == height - 1)) {
+  var width = width || 5;
+  var height = height || 10;
+  for ( var i = 0; i < height; i++) {
+    for ( var j = 0; j < width; j++) {
+      if ( (i == 0) || (i == height - 1) || (j == 0) || (j == width - 1)) {
         output += "*";
       } else {
         output += " ";
@@ -81,6 +92,7 @@ var drawRectangle = function (width, height) {
 // Функция рисования прямоугольного треугольника
 var triangleRight = function (size) {
   var output = '';
+  var size = size || 10;
   for ( var i = 0; i < size; i++) {
     for ( var j = 0; j < i + 1; j++ ) {
       if ((j == 0) || (j == i) || (i == size - 1)) {
@@ -97,6 +109,7 @@ var triangleRight = function (size) {
 // Функция рисования равностороннего треугольника
 var triangleEqual = function (size) {
   var output = '';
+  var size = size || 10;
   for( var i = 0; i < size; i++ ) {
     for( var j = -size + 1; j <= i; j++) {
       if ((Math.abs(j) == i) || (i == size - 1)) {
@@ -113,6 +126,7 @@ var triangleEqual = function (size) {
 // Функция рисования ромба
 var rhombus = function (side) {
   var output = '';
+  var side = side || 5 ;
   var steps = side * 2 - 1;
   for( var i = -side + 1; i < side; i++ ) {
     for( var j = -side + 1; j < steps - Math.abs(i); j++) {
@@ -130,7 +144,7 @@ var rhombus = function (side) {
 
 
 console.log("[ Задача 3 ]");
-console.log(drawRectangle(3,30));
+console.log(drawRectangle(30,5));
 console.log(triangleRight(10));
-console.log(triangleEqual(5));
+console.log(triangleEqual(7));
 console.log(rhombus(5));
