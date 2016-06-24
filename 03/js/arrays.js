@@ -20,6 +20,7 @@ var generateArray = function (size) {
 
 }
 //tests
+console.log('Task 1');
 console.log(generateArray(20));
 // console.log(generateArray(-20));
 // console.log(generateArray(0));
@@ -66,6 +67,7 @@ var compareCharsArrays = function(charsArray1, charsArray2) {
   }
 
 }
+console.log('Task 2');
 console.log(compareCharsArrays(str1, str2));
 console.log(compareCharsArrays(str3, str2));
 console.log(compareCharsArrays(str3, str4));
@@ -104,6 +106,7 @@ var maxEqualSequence = function(array) {
       throw new Error('Please, specify input array.');
   }
 }
+console.log('Task 3');
 console.log(array);
 console.log('Maximal sequence of equal elements:');
 console.log(maxEqualSequence(array));
@@ -142,6 +145,7 @@ var maxIncSequence = function(array) {
 
 }
 //tests
+console.log('Task 4');
 var array1 = [3, 2, 3, 4, 2, true, 2, 4.4, 8, 9];
 var array2 = [5, 4, 3, 2, 1];
 console.log(array1);

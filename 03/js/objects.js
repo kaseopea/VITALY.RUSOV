@@ -7,9 +7,12 @@
 //     * Check if three segment lines can form a triangle
 
 var Point = function(x,y) {
-  // todo: 0 is not the best choice, change
-  this.x = x || 0;
-  this.y = y || 0;
+  if (!isNaN(parseFloat(x)) && isFinite(x) && !isNaN(parseFloat(y)) && isFinite(y)) {
+    this.x = x;
+    this.y = y;
+  } else {
+    throw new Error('Please, specify correct coordinates');
+  }
 
   this.clone = function() {
     return new Point(this.x, this.y);
@@ -27,15 +30,13 @@ var Line = function(point1, point2) {
   this.start = point1.clone();
   this.end = point2.clone();
 
-  // console.log(this.start);
-  // console.log(this.end);
-
+  // calculate distance between points
   this.length = function () {
     return this.start.getDistance(this.end);
   }
 
   this.toString = function () {
-    return "The line: start " + this.start + ", end " + this.end;
+    return "Start: " + this.start + " | End: " + this.end;
   }
 }
 
@@ -43,12 +44,11 @@ var checkIfTrianglePossible = function(line1, line2, line3) {
   var length1 = line1.length();
   var length2 = line2.length();
   var length3 = line3.length();
-  // console.log(length1);
-  // console.log(length2);
-  // console.log(length3);
   return (length1 + length2 > length3) && (length2 + length3 > length1) && (length1 + length3 > length2);
 }
 
+//tests
+console.log('Task 1');
 var p1 = new Point(7,2);
 var p2 = new Point(1,8);
 var p3 = new Point(1,2);
@@ -65,19 +65,20 @@ var lineD = new Line(new Point(0,9),new Point(9,9));
 var lineE = new Line(new Point(1,0),new Point(1,1));
 var lineF = new Line(new Point(7,0),new Point(7,1));
 
-// console.log(p1.toString());
-// console.log(p2.toString());
+console.log(p1.toString());
+console.log(p2.toString());
 // console.log(p1.getDistance(p2));
 // console.log(p2.getDistance(p1));
-// console.log('---------------------------------------');
-// console.log('Line A: ' + lineA + ' | Length: ' + lineA.length());
-// console.log('Line B: ' + lineB + ' | Length: ' + lineB.length());
-// console.log('Line C: ' + lineC + ' | Length: ' + lineC.length());
-// console.log('---------------------------------------');
-//
-// console.log(checkIfTrianglePossible(lineA, lineB, lineC));
-// console.log(checkIfTrianglePossible(lineD, lineE, lineF));
+console.log('---------------------------------------');
+console.log('Line A: ' + lineA + ' | Length: ' + lineA.length());
+console.log('Line B: ' + lineB + ' | Length: ' + lineB.length());
+console.log('Line C: ' + lineC + ' | Length: ' + lineC.length());
+console.log('---------------------------------------');
 
+console.log('Check if triangle possible: ' + checkIfTrianglePossible(lineA, lineB, lineC));
+console.log('Check if triangle possible: ' + checkIfTrianglePossible(lineD, lineE, lineF));
+
+console.log('\n\n');
 
 // 2. Write a function that removes all elements with a given value
 // 	* var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
@@ -87,7 +88,6 @@ var lineF = new Line(new Point(7,0),new Point(7,1));
 Array.prototype.remove = function (elements) {
   var array = this;
   var indexes = [];
-
   for (var i = 0; i < arguments.length; i++) {
     var deleteArg = arguments[i];
     array.forEach(function(el, i, arr) {
@@ -105,25 +105,30 @@ Array.prototype.remove = function (elements) {
   return array;
 }
 
-// var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
-// arr.remove(1);
-// console.log(arr);
-//
-// console.log('---------------------------------------');
-//
-// var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
-// arr.remove(1,2);
-// console.log(arr);
-//
-// console.log('---------------------------------------');
-//
-// var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
-// arr.remove('1', 1, 2);
-// console.log(arr);
+//tests
+console.log('Task 2');
+var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
+arr.remove(1);
+console.log(arr);
+
+console.log('---------------------------------------');
+
+var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
+arr.remove(1,2);
+console.log(arr);
+
+console.log('---------------------------------------');
+
+var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
+arr.remove('1', 1, 2);
+console.log(arr);
+
+console.log('\n\n');
 
 //Task3
 // reference - deepclone.js
-
+console.log('Task 3');
+console.log('\n\n');
 
 // 4. Write a function that finds the youngest person in a given array of persons and prints his/hers full name
 //    * Each person has properties `firstName`, `lastName` and `age`, as shown:
@@ -137,7 +142,7 @@ function Person(name, lastName, age) {
    this.lastName = lastName;
    this.age = age;
    this.toString = function () {
-       return this.name + " " + this.lastName + ", age: " + this.age;
+       return this.name + ' ' + this.lastName + ' (' + this.age + ')';
    }
 }
  var people = new Array();
@@ -146,30 +151,39 @@ people.push(new Person("Ivan", "Ivanov", 27));
 people.push(new Person("Peter", "Petrov", 26));
 people.push(new Person("Sidor", "Sidorov", 26));
 people.push(new Person("Anka", "Hodor", 19));
-people.push(new Person("Ivan", "Petrov", 33));
+people.push(new Person("Ivan", "Petrov", 19));
 people.push(new Person("Anka", "Ivanov", 26));
 // console.log(people);
 
-var findYoungestSort = function(data) {
-  var sorted = data.sort(function(a, b) {
-    return a.age - b.age;
-  });
-  return sorted[0].age;
-}
-
-// Should be faster
 var findYoungest = function(data) {
-  var yongest = data[0];
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].age < yongest.age) {
-      yongest = data[i];
+  var allyongest = [];
+  if (data && (data instanceof Object)) {
+    var yongest = data[0];
+    for (var i = 0; i < data.length; i++) {
+      if ((data[i].age < yongest.age) && Number.isInteger(data[i].age) && Number.isInteger(yongest.age)) {
+        yongest = data[i];
+      }
     }
+    for (age in data) {
+      if (data[age].age === yongest.age) {
+        allyongest.push(data[age]);
+      }
+    }
+    console.log(allyongest);
+    return allyongest;
+  } else {
+    throw new Error('Please, specify correct input data object.');
   }
-  return yongest.age;
-}
-// console.log(findYoungest(people));
-// console.log(findYoungestSort(people));
 
+}
+
+//tests
+console.log('Task 4');
+console.log('Youngest person(s) is(are):  ' + findYoungest(people).toString());
+// console.log(findYoungest());
+// console.log(findYoungest('sample'));
+
+console.log('\n\n');
 
 // 5. Write a function that groups an array of persons by age, first or last name.
 // The function must return an associative array, with keys - the groups,
@@ -180,34 +194,46 @@ var findYoungest = function(data) {
 //    var groupedByFirstName = group(persons, "firstname");
 //    var groupedByAge = group(persons, "age");
 
-
-
 // console.log(people);
 
-function group(people, property) {
-    if (!people[0].hasOwnProperty(property)) {
-        throw new Error("no such property!");
-    }
-    groups = {};
+var group = function (people, property) {
+
+  console.log(people);
+  //some checks
+  if (!(people instanceof Object)) {
+    throw new Error("Input data is not an Object.");
+  } else if (!people[0].hasOwnProperty(property)) {
+    throw new Error("No such property!");
+  }
+
+  //initilize
+  var groups = {};
+
+  return (function() {
+    var groups = {};
     people.map(function (current) {
         if (!groups[current[property]]) {
             groups[current[property]] = new Array();
         }
         groups[current[property]].push(current);
     });
-    return groups;
+    groupsAll.push(groups);
+    return groupsAll;
+  })();
 }
 
+console.log('Task 5');
+console.log(people);
 var groupedByFirstName = group(people, "name");
 var groupedByLastName = group(people, "lastName");
-var groupedByAge = group(people, "age");
+// var groupedByAge = group(people, "age");
 
-// console.log(groupedByFirstName);
+console.log(groupedByFirstName);
 // console.log(groupedByLastName);
 // console.log(groupedByAge);
 
-printPeople(people);
-printGrouped(people);
+// printPeople(people);
+// printGrouped(people);
 
 function printPeople(people) {
     for (var i = 0; i < people.length; i++) {
@@ -217,7 +243,7 @@ function printPeople(people) {
 // console.log(typeof people);
 function printGrouped(people) {
     for (var person in people) {
-        //console.log(people[person]);
+        console.log(people[person]);
         // console.log(person);
     }
 }

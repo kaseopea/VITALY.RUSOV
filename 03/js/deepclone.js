@@ -1,9 +1,6 @@
 // 3. Write a function that makes a deep copy of an object.
 // The function should work for both primitive and reference types.
 
-// Разобраться с материалом
-// http://blog.soulserv.net/understanding-object-cloning-in-javascript-part-ii/
-
 Object.prototype.deepCopy = function (obj) {
 
   if ((obj === null) || (obj === undefined) || (typeof obj !== 'object')) {

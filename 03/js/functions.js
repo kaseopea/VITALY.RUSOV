@@ -14,6 +14,7 @@ var lastDigitName = function(number) {
   return digitNames[last];
 }
 //tests
+console.log('Task 1');
 console.log('512 > ' + lastDigitName(512));
 console.log('1024 > ' + lastDigitName(1024));
 console.log('12309 > ' + lastDigitName(12309));
@@ -38,6 +39,7 @@ var reversDigits = function(number) {
   }
 
 }
+console.log('Task 2');
 console.log(reversDigits(256));
 console.log(reversDigits(12309));
 console.log(reversDigits(-312309)); //saves negative value
@@ -80,7 +82,7 @@ var searchForWord = function searchForWord() {
     throw new Error('No correct input specified.');
   }
 }
-
+console.log('Task 3');
 var string = 'Write a function text that finds all the Text, occurrences of word in a text';
 console.log(searchForWord('o', string));
 console.log(searchForWord('text', string));
@@ -96,4 +98,5 @@ var countDivs = function() {
   var divs = document.getElementsByTagName('div');
   return divs.length;
 }
+console.log('Task 4');
 console.log('Number of divs: ' + countDivs());
