@@ -1,105 +1,152 @@
 'use strict';
 // Arrays
 //
-// 1. Write a script that allocates array of 20 integers and initializes each element by its index multiplied by 5. Print the obtained array on the console.
+// 1. Write a script that allocates array of 20 integers and initializes each
+// element by its index multiplied by 5. Print the obtained array on the console.
 
 var generateArray = function (size) {
-  var array = Array(size);
-  for ( var i = 0; i < array.length; i++) {
-    array[i] = i * 5;
+  var array = [];
+  if (!size) {
+    return array;
   }
-  return array;
+  if (Number.isInteger(size)) {
+    for ( var i = 0; i < size; i++) {
+      array[i] = i * 5;
+    }
+    return array;
+  } else {
+    throw new Error('Please, provide an integer positive number for array size.');
+  }
+
 }
-
+//tests
 console.log(generateArray(20));
+// console.log(generateArray(-20));
+// console.log(generateArray(0));
+// console.log(generateArray());
+// console.log(generateArray('20'));
 
-// 2. Write a script that compares two char arrays lexicographically (letter by letter).
+console.log('\n\n');
 
-var str1 = 'JavaScript';
-var str2 = 'Javastrip';
-var str3 = 'Javascript';
-console.log('===========');
-console.log(str3 > str2);
-console.log('===========');
+// 2. Write a script that compares two char arrays lexicographically
+// (letter by letter).
+var str1 = 'JavaScript'.split('');
+var str2 = 'Javastrip'.split('');
+var str3 = 'Javascript'.split('');
+var str4 = 'Javascript'.split('');
+var str5 = 'Javascripts'.split('');
 
-var compareLetterByLetter = function(str1, str2) {
-
-  //check for input data
-  var arr1 = str1.split(''), arr2 = str2.split('');
-  var first;
-  console.log(arr1.length);
-  console.log(arr2.length);
-  var minLength = (arr1.length > arr2.length) ? arr2.length : arr1.length;
+var compareCharsArrays = function(charsArray1, charsArray2) {
+  var arr1 = charsArray1;
+  var arr2 = charsArray2;
+  var minSize = (arr1.length > arr2.length) ? arr2.length : arr1.length;
+  var first = 0;
   var i = 0;
-  console.log('Comparing [' + arr1 + '] and [' + arr2 + ']');
-  //
-  while (i < minLength) {
-    if (arr1[i] < arr2[i]) {
+
+  if ((!charsArray1) || (!charsArray2) || (!Array.isArray(charsArray1)) || (!Array.isArray(charsArray2))) {
+    throw new Error('Please, specify 2 chars arrays');
+  }
+
+  while (i < minSize) {
+    var char1 = arr1[i].charCodeAt(0);
+    var char2 = arr2[i].charCodeAt(0);
+    if (char1 > char2) {
       first = 1;
-      break;
-    } else {
+      return arr1 + ' is first lexicographically.';
+    } else if (char2 > char1) {
       first = 2;
-      break;
+      return arr2 + ' is first lexicographically.';
     }
     i++;
   }
-  var arr = (first - 1) ? arr2 : arr1;
-  return '[' + arr + '] is first lexicographically.';
-}
+  if ( !first && (arr1.length === arr2.length)) {
+    return arr1 + ' is equal to ' + arr2;
+  } else {
+    return (arr1.length > arr2.length) ? (arr1 + ' is first lexicographically.') : (arr2 + ' is first lexicographically.');
+  }
 
-console.log(compareLetterByLetter(str1, str2));
+}
+console.log(compareCharsArrays(str1, str2));
+console.log(compareCharsArrays(str3, str2));
+console.log(compareCharsArrays(str3, str4));
+console.log(compareCharsArrays(str5, str4));
+// console.log(compareCharsArrays(10, 20));
+// console.log(compareCharsArrays(str5));
+// console.log(compareCharsArrays());
+
+console.log('\n\n');
 
 
 // 3. Write a script that finds the maximal sequence of equal elements in an array.
-//
-//     **Example:** [2, 1, 1, 2, 3, 3, 2, 2, 2, 2, 2, 2, 1] -> [2, 2, 2].
-var array = [2, 1, 1, 2, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];
+// **Example:** [2, 1, 1, 2, 3, 3, 2, 2, 2, 2, 2, 2, 1] -> [2, 2, 2].
+var array = [2, 1, 1, 2, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1];
+var array = [2, 1, 1, 2, 3, 3, 2, 2, 2, true, true, true, true, 1, 1];
 
 var maxEqualSequence = function(array) {
   var arr = array;
   var currentSequence = 1;
   var longestSequence = 1;
   var indexOfLongest;
-
-  for (var i = 0; i < arr.length; i++) {
-    if ((arr[i] == arr[i + 1])  && (!isNaN(arr[i]))) {
-       currentSequence++;
-    } else {
-       if (longestSequence < currentSequence) {
-           longestSequence = currentSequence;
-           indexOfLongest = i - currentSequence + 1;
-       }
-       currentSequence = 1;
-    }
-   }
-  // var result =
-  return arr.slice(indexOfLongest, indexOfLongest + longestSequence);
+  if (arr instanceof Array) {
+    for (var i = 0; i < arr.length; i++) {
+      if ((arr[i] === arr[i + 1]) && (typeof arr[i] === typeof arr[i+1])) {
+         currentSequence++;
+      } else {
+         if (longestSequence < currentSequence) {
+             longestSequence = currentSequence;
+             indexOfLongest = i - currentSequence + 1;
+         }
+         currentSequence = 1;
+      }
+     }
+    return arr.slice(indexOfLongest, indexOfLongest + longestSequence);
+  } else {
+      throw new Error('Please, specify input array.');
+  }
 }
+console.log(array);
+console.log('Maximal sequence of equal elements:');
 console.log(maxEqualSequence(array));
 
-// 4. Write a script that finds the maximal increasing sequence in an array.
-//
-//     **Example:** [3, 2, 3, 4, 2, 2, 4] -> [2, 3, 4].
+// console.log(maxEqualSequence(10));
+// console.log(maxEqualSequence());
 
-var array = [3, 2, 3, 4, 2, 2, 4];
+console.log('\n\n');
+
+
+// 4. Write a script that finds the maximal increasing sequence in an array.
+// **Example:** [3, 2, 3, 4, 2, 2, 4] -> [2, 3, 4].
 var maxIncSequence = function(array) {
   var arr = array;
   var currentSequence = 1;
   var longestSequence = 1;
   var indexOfLongest;
 
-  for (var i = 0; i < arr.length; i++) {
+  if (arr instanceof Array) {
+    for (var i = 0; i < arr.length; i++) {
+      //check if number, same type and increases
+      if ((arr[i] < (arr[i + 1])) && (!isNaN(parseFloat(arr[i]))) && (isFinite(arr[i])) && (typeof arr[i] === typeof arr[i+1])) {
+         currentSequence++;
+      } else {
+         if (longestSequence < currentSequence) {
+             longestSequence = currentSequence;
+             indexOfLongest = i - currentSequence + 1;
+         }
+         currentSequence = 1;
+      }
+     }
+    return arr.slice(indexOfLongest, indexOfLongest + longestSequence);
+  } else {
+    throw new Error('Please, specify input array.');
+  }
 
-    if ((arr[i] == (arr[i + 1] - 1)) && (!isNaN(arr[i]))) {
-       currentSequence++;
-    } else {
-       if (longestSequence < currentSequence) {
-           longestSequence = currentSequence;
-           indexOfLongest = i - currentSequence + 1;
-       }
-       currentSequence = 1;
-    }
-   }
-  return arr.slice(indexOfLongest, indexOfLongest + longestSequence);
 }
-console.log(maxIncSequence(array));
+//tests
+var array1 = [3, 2, 3, 4, 2, true, 2, 4.4, 8, 9];
+var array2 = [5, 4, 3, 2, 1];
+console.log(array1);
+console.log(maxIncSequence(array1));
+console.log(array2);
+console.log(maxIncSequence(array2));
+// console.log(maxIncSequence(10));
+// console.log(maxIncSequence());
