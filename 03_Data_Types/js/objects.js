@@ -128,6 +128,7 @@ console.log('\n\n');
 //Task3
 // reference - deepclone.js
 console.log('Task 3');
+console.log('See deepclone.js');
 console.log('\n\n');
 
 // 4. Write a function that finds the youngest person in a given array of persons and prints his/hers full name
@@ -148,13 +149,13 @@ function Person(name, lastName, age, group) {
 }
  var people = new Array();
 
-people.push(new Person("Ivan", "Ivanov", 27, 'designer'));
+people.push(new Person("Ivan", "Ivanov", 26, 'designer'));
 people.push(new Person("Peter", "Petrov", 26, 'developer'));
 people.push(new Person("Sidor", "Sidorov", 26, 'developer'));
 people.push(new Person("Anka", "Hodor", 19, 'designer'));
 people.push(new Person("Ivan", "Petrov", 19, 'developer'));
 people.push(new Person("Anka", "Ivanov", 26, 'developer'));
-people.push(new Person("Mitri", "Valabanov", 26, 'developer'));
+people.push(new Person("Mitri", "Valabanov", 27, 'developer'));
 people.push(new Person("John", "Doe", 19, 'designer'));
 // console.log(people);
 
@@ -200,8 +201,67 @@ console.log('\n\n');
 //    var groupedByFirstName = group(persons, "firstname");
 //    var groupedByAge = group(persons, "age");
 
-// console.log(people);
+// var recommended_output = {
+//   'designer': [
+//     {name: "Ivan", lastName: "Ivanov", age: 27, group: "designer"},
+//     {name: "Anka", lastName: "Hodor", age: 19, group: "designer"},
+//     {name: "John", lastName: "Doe", age: 19, group: "designer"}
+//   ],
+//   'developer': [
+//     {name: "Sidor", lastName: "Sidorov", age: 26, group: "developer"},
+//     {name: "Peter", lastName: "Petrov", age: 26, group: "developer"}
+//   ]
+// };
 
+
+// Recommended solution
+var newGroup = function(obj, property) {
+  var groups = {};
+  var groupField = 'group';
+
+  //sort by group
+  obj.map(function(person) {
+    var personGroup = person[groupField];
+
+    if (!groups[personGroup]) {
+      groups[personGroup] = [];
+      groups[personGroup].push(person);
+    } else {
+      // group exists
+      var currentGroup = groups[personGroup];
+
+      for (var i = 0; i < currentGroup.length; i++) {
+        var currentProp = currentGroup[i][property];
+
+        //Check if current property is bigger than last array item, kind of optimization)
+        if (person[property] > currentGroup[currentGroup.length - 1][property]) {
+          groups[personGroup].push(person);
+          break;
+        }
+
+        // checking and inserting property
+        if (currentProp >= person[property]) {
+          currentGroup.splice(i, 0, person);
+          break;
+        }
+      }
+    }
+  });
+
+  return groups;
+}
+console.log('Task 5');
+console.log(people);
+var groupedByFirstName = newGroup(people, "name");
+var groupedByLastName = newGroup(people, "lastName");
+var groupedByAge = newGroup(people, "age");
+
+console.log(groupedByFirstName);
+console.log(groupedByLastName);
+console.log(groupedByAge);
+
+
+// Another solution
 var group = function (people, property) {
   var groups = {};
 
@@ -212,7 +272,6 @@ var group = function (people, property) {
     throw new Error("No such property!");
   }
 
-  var groups = {};
   people.map(function (current) {
       if (!groups[current[property]]) {
           groups[current[property]] = new Array();
@@ -222,29 +281,43 @@ var group = function (people, property) {
   return groups;
 }
 
-console.log('Task 5');
-console.log(people);
+console.log('\nAnother solution');
+
+var groups = {};
 
 var groupedByFirstName = group(people, "name");
 var groupedByLastName = group(people, "lastName");
 var groupedByAge = group(people, "age");
 
-// console.log(groupedByFirstName);
-// console.log(groupedByLastName);
-// console.log(groupedByAge);
+groups['name'] = groupedByFirstName;
+groups['lastName'] = groupedByLastName;
+groups['age'] = groupedByAge;
 
-// printPeople(people);
-// printGrouped(people);
-//
-// function printPeople(people) {
-//     for (var i = 0; i < people.length; i++) {
-//         console.log(people[i].toString());
-//     }
-// }
-// console.log(typeof people);
-// function printGrouped(people) {
-//     for (var person in people) {
-//         console.log(people[person]);
-//         // console.log(person);
-//     }
-// }
+console.log(groups);
+
+console.log('\n\n');
+
+// Some additional functions to present data
+function printPeople(people) {
+    for (var i = 0; i < people.length; i++) {
+        console.log(people[i].toString());
+    }
+}
+
+function printGrouped(data) {
+  var person;
+    for (var p in data) {
+        // console.log(people[person]);
+        console.log(p);
+        for ( var i = 0; i < data[p].length; i++ ) {
+          person = data[p][i];
+          console.log(person.toString());
+        }
+        console.log('\n');
+    }
+}
+
+console.log('>>> LIST OF PEOPLE');
+printPeople(people);
+console.log('\n>>> LIST GROUPED:');
+printGrouped(newGroup(people, "age"));

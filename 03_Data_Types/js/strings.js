@@ -120,6 +120,48 @@ console.log('\n\n');
 //     The expected result: `We are LiVinG in a YELLOW SUBMARINE. We dOn'T have anything else.`
 //     Regions can be nested.
 
+var newParser = function (string) {
+  var result = string || '';
+  var mixcasePattern = /<mixcase>(.*?)<\/mixcase>/gi;
+  var upcasePattern = /<upcase>(.*?)<\/upcase>/gi;
+  var lowcasePattern = /<lowcase>(.*?)<\/lowcase>/gi;
+
+  if(_.isString(result)) {
+
+    result = result.replace(mixcasePattern, function (match, inner) {
+        var newMixCase = '';
+        var upperOrLower;
+        var replaced;
+        for (i = 0; i < inner.length; i++) {
+            upperOrLower = Math.round(Math.random());
+            replaced = (upperOrLower) ? inner.charAt(i).toUpperCase() : inner.charAt(i).toLowerCase();
+            newMixCase += replaced;
+        }
+        return newMixCase;
+      });
+
+    result = result.replace(upcasePattern, function (match, inner) {
+      upcasePattern = /<upcase>(.*?)<\/upcase>$$/gi;
+      match = match.replace(upcasePattern, inner.toUpperCase());
+      return inner.toUpperCase();
+    });
+    result = result.replace(lowcasePattern, function (match, inner) {
+      match = match.replace(lowcasePattern, inner.toLowerCase());
+      return inner.toLowerCase();
+    });
+    return result;
+  } else {
+    throw new Error('Please specify string to parse;');
+  }
+
+
+}
+console.log('Task 4');
+var testString = 'We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. ' +
+'We <mixcase>don\'t</mixcase> have <lowcase>anything</lowcase> else.';
+var nested = '<upcase>yellow <lowcase>submarine</lowcase></upcase>';
+console.log(newParser(testString));
+console.log(newParser(nested));
 
 
 console.log('\n\n');
@@ -215,4 +257,4 @@ console.log(createUrlObject());
 console.log(createUrlObject('http://www.tut.by/forum/index.php'));
 console.log(createUrlObject('http://tut.by/forum/index.php'));
 console.log(createUrlObject('http://tut.by/forum/index.php?param=true'));
-console.log(createUrlObject('ftp://ftp.is.co.za/rfc/rfc1808.txt'));
+console.log(createUrlObject('ftp://ftp.is.to.com/docs/data1788.txt'));
