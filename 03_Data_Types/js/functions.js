@@ -2,15 +2,16 @@
 //
 // 1. Write a function that returns the last digit of given integer as an English word.
 // Examples: 512 -> "two", 1024 -> "four", 12309 -> "nine"
-
 var lastDigitName = function(number) {
   var digitNames = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-  if (Number.isInteger(number)) {
+
+  if (_.isInteger(number)) {
     var numberChars = number.toString().split('');
     var last = numberChars[numberChars.length - 1];
   } else {
     throw new Error('Please, specify an integer input value');
   }
+
   return digitNames[last];
 }
 //tests
@@ -27,12 +28,12 @@ console.log('\n\n');
 
 // 2. Write a function that reverses the digits of given decimal number. Example: 256 -> 652
 var reversDigits = function(number) {
-  if (Number.isInteger(number)) {
+  if (_.isInteger(number)) {
     var result = Math.abs(number).toString().split('').reverse().join('');
     if (number >=0) {
-      return result;
+      return parseInt(result);
     } else {
-      return '-'.concat(result);
+      return (-1) * result;
     }
   } else {
     throw new Error('Please, specify an integer input value');
@@ -42,7 +43,7 @@ var reversDigits = function(number) {
 console.log('Task 2');
 console.log(reversDigits(256));
 console.log(reversDigits(12309));
-console.log(reversDigits(-312309)); //saves negative value
+console.log(reversDigits(-312309)); // my function also saves negative value )
 console.log(reversDigits(0));
 // console.log(reversDigits());
 // console.log(reversDigits('werty'));
@@ -53,15 +54,13 @@ console.log('\n\n');
 //     * The search can case sensitive or case insensitive
 //     * Use function overloading
 
-var searchForWord = function searchForWord() {
+var searchForWord = function () {
 
   //insensitive
   this.insensitive = function(search, string) {
     var reg = new RegExp(search, 'gi');
     var result = string.match(reg);
-
     return (result) ? result.length : 0;
-
   }
 
   //sensitive

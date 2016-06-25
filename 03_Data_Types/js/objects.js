@@ -7,7 +7,7 @@
 //     * Check if three segment lines can form a triangle
 
 var Point = function(x,y) {
-  if (!isNaN(parseFloat(x)) && isFinite(x) && !isNaN(parseFloat(y)) && isFinite(y)) {
+  if (_.isNumber(x) && _.isNumber(y)) {
     this.x = x;
     this.y = y;
   } else {
@@ -80,27 +80,27 @@ console.log('Check if triangle possible: ' + checkIfTrianglePossible(lineD, line
 
 console.log('\n\n');
 
+
 // 2. Write a function that removes all elements with a given value
 // 	* var arr = [1, 2, 1, 4, 1, 3, 4, 1, 111, 3, 2, 1, "1"];
 //     * arr.remove(1); // arr = [2, 4, 3, 4, 111, 3, 2, "1"];
 //    * Attach it to the array object
 //    * Read about `prototype` and how to attach methods
+
 Array.prototype.remove = function (elements) {
   var array = this;
   var indexes = [];
-  for (var i = 0; i < arguments.length; i++) {
-    var deleteArg = arguments[i];
-    array.forEach(function(el, i, arr) {
-      if (arr[i] === deleteArg) {
-        indexes.push(i);
+  var deleteArg;
+  var i;
+
+  for (i = 0; i < arguments.length; i++) {
+    deleteArg = arguments[i];
+    array.map(function(el,j,arr) {
+      if (arr[j] === deleteArg) {
+        array.splice(j, 1);
       }
     });
-  }
-  indexes.sort(function(a,b) {
-    return a - b;
-  });
-  for (var i = 0; i < indexes.length; i++) {
-    array.splice(indexes[i] - i,1);
+
   }
   return array;
 }
@@ -137,22 +137,25 @@ console.log('\n\n');
 //      { firstName : "Bay", lastName: "Ivan", age: 81 }
 //      ...
 //    ];
-function Person(name, lastName, age) {
+function Person(name, lastName, age, group) {
    this.name = name;
    this.lastName = lastName;
    this.age = age;
+   this.group = group;
    this.toString = function () {
-       return this.name + ' ' + this.lastName + ' (' + this.age + ')';
+       return this.name + ' ' + this.lastName + ' [' + group +  '](' + this.age + 'yo)';
    }
 }
  var people = new Array();
 
-people.push(new Person("Ivan", "Ivanov", 27));
-people.push(new Person("Peter", "Petrov", 26));
-people.push(new Person("Sidor", "Sidorov", 26));
-people.push(new Person("Anka", "Hodor", 19));
-people.push(new Person("Ivan", "Petrov", 19));
-people.push(new Person("Anka", "Ivanov", 26));
+people.push(new Person("Ivan", "Ivanov", 27, 'designer'));
+people.push(new Person("Peter", "Petrov", 26, 'developer'));
+people.push(new Person("Sidor", "Sidorov", 26, 'developer'));
+people.push(new Person("Anka", "Hodor", 19, 'designer'));
+people.push(new Person("Ivan", "Petrov", 19, 'developer'));
+people.push(new Person("Anka", "Ivanov", 26, 'developer'));
+people.push(new Person("Mitri", "Valabanov", 26, 'developer'));
+people.push(new Person("John", "Doe", 19, 'designer'));
 // console.log(people);
 
 var findYoungest = function(data) {
@@ -179,6 +182,9 @@ var findYoungest = function(data) {
 
 //tests
 console.log('Task 4');
+console.log('All people:');
+console.log(people);
+console.log('\n');
 console.log('Youngest person(s) is(are):  ' + findYoungest(people).toString());
 // console.log(findYoungest());
 // console.log(findYoungest('sample'));
@@ -197,53 +203,48 @@ console.log('\n\n');
 // console.log(people);
 
 var group = function (people, property) {
+  var groups = {};
 
-  console.log(people);
   //some checks
-  if (!(people instanceof Object)) {
+  if (!_.isObject(people)) {
     throw new Error("Input data is not an Object.");
   } else if (!people[0].hasOwnProperty(property)) {
     throw new Error("No such property!");
   }
 
-  //initilize
   var groups = {};
-
-  return (function() {
-    var groups = {};
-    people.map(function (current) {
-        if (!groups[current[property]]) {
-            groups[current[property]] = new Array();
-        }
-        groups[current[property]].push(current);
-    });
-    groupsAll.push(groups);
-    return groupsAll;
-  })();
+  people.map(function (current) {
+      if (!groups[current[property]]) {
+          groups[current[property]] = new Array();
+      }
+      groups[current[property]].push(current);
+  });
+  return groups;
 }
 
 console.log('Task 5');
 console.log(people);
+
 var groupedByFirstName = group(people, "name");
 var groupedByLastName = group(people, "lastName");
-// var groupedByAge = group(people, "age");
+var groupedByAge = group(people, "age");
 
-console.log(groupedByFirstName);
+// console.log(groupedByFirstName);
 // console.log(groupedByLastName);
 // console.log(groupedByAge);
 
 // printPeople(people);
 // printGrouped(people);
-
-function printPeople(people) {
-    for (var i = 0; i < people.length; i++) {
-        // console.log(people[i].toString());
-    }
-}
+//
+// function printPeople(people) {
+//     for (var i = 0; i < people.length; i++) {
+//         console.log(people[i].toString());
+//     }
+// }
 // console.log(typeof people);
-function printGrouped(people) {
-    for (var person in people) {
-        console.log(people[person]);
-        // console.log(person);
-    }
-}
+// function printGrouped(people) {
+//     for (var person in people) {
+//         console.log(people[person]);
+//         // console.log(person);
+//     }
+// }
