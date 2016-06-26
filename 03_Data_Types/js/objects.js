@@ -147,7 +147,7 @@ function Person(name, lastName, age, group) {
        return this.name + ' ' + this.lastName + ' [' + group +  '](' + this.age + 'yo)';
    }
 }
- var people = new Array();
+ var people = [];
 
 people.push(new Person("Ivan", "Ivanov", 26, 'designer'));
 people.push(new Person("Peter", "Petrov", 26, 'developer'));
@@ -284,15 +284,12 @@ var group = function (people, property) {
 console.log('\nAnother solution');
 
 var groups = {};
-
 var groupedByFirstName = group(people, "name");
 var groupedByLastName = group(people, "lastName");
 var groupedByAge = group(people, "age");
-
 groups['name'] = groupedByFirstName;
 groups['lastName'] = groupedByLastName;
 groups['age'] = groupedByAge;
-
 console.log(groups);
 
 console.log('\n\n');
@@ -307,7 +304,6 @@ function printPeople(people) {
 function printGrouped(data) {
   var person;
     for (var p in data) {
-        // console.log(people[person]);
         console.log(p);
         for ( var i = 0; i < data[p].length; i++ ) {
           person = data[p][i];

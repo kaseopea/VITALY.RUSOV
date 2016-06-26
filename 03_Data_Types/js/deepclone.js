@@ -4,11 +4,9 @@
 Object.prototype.deepCopy = function (obj) {
 
   if (arguments.length > 0) {
-
     if (_.isNil(obj)) {
       return obj;
     }
-
     if (_.isObject(obj)) {
         return almostDeepCopy(obj);
     } else {
@@ -22,22 +20,22 @@ Object.prototype.deepCopy = function (obj) {
   }
 
   // almost deep copy
-  function almostDeepCopy( original ) {
-      var clone = Object.create( Object.getPrototypeOf( original ) ) ;
-      var i , descriptor , keys = Object.getOwnPropertyNames( original ) ;
+  function almostDeepCopy(original) {
+      var clone = Object.create(Object.getPrototypeOf(original));
+      var i, descriptor, keys = Object.getOwnPropertyNames(original);
 
-      for ( i = 0 ; i < keys.length ; i ++ ) {
-          descriptor = Object.getOwnPropertyDescriptor( original , keys[ i ] ) ;
+      for (i = 0 ; i < keys.length ; i++) {
+          descriptor = Object.getOwnPropertyDescriptor(original, keys[i]);
           if ( descriptor.value && typeof descriptor.value === 'object' ) {
-              descriptor.value = almostDeepCopy( descriptor.value ) ;
+              descriptor.value = almostDeepCopy(descriptor.value);
           }
-          Object.defineProperty( clone , keys[ i ] , descriptor ) ;
+          Object.defineProperty(clone, keys[i], descriptor);
       }
-      return clone ;
+      return clone;
   }
 }
 
-// tests
+// tests ------------------------------------------------------------------------------------------------------
 console.log('\n\nTask 3');
 
 //reference types

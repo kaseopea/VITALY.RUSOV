@@ -8,7 +8,7 @@ var reversByChar = function(string) {
   var char;
 
   if (_.isString(string)) {
-    for ( char = string.length - 1; char >= 0; char--) {
+    for (char = string.length - 1; char >= 0; char--) {
       reversed += string.charAt(char);
     }
     return reversed;
@@ -95,7 +95,7 @@ var searchTimesString = function(search, string) {
   var count;
   if (_.isString(search) && _.isString(string)) {
     pattern = new RegExp(search.toString(), 'gi');
-    count = (string.match(pattern)|| []).length;
+    count = (string.match(pattern) || []).length;
     return count;
   } else {
     throw new Error('Please, specify correct input strings.');
@@ -129,16 +129,17 @@ var newParser = function (string) {
   if(_.isString(result)) {
 
     result = result.replace(mixcasePattern, function (match, inner) {
-        var newMixCase = '';
-        var upperOrLower;
-        var replaced;
-        for (i = 0; i < inner.length; i++) {
-            upperOrLower = Math.round(Math.random());
-            replaced = (upperOrLower) ? inner.charAt(i).toUpperCase() : inner.charAt(i).toLowerCase();
-            newMixCase += replaced;
-        }
-        return newMixCase;
-      });
+      var newMixCase = '';
+      var upperOrLower;
+      var replaced;
+      var i;
+      for (i = 0; i < inner.length; i++) {
+          upperOrLower = Math.round(Math.random());
+          replaced = (upperOrLower) ? inner.charAt(i).toUpperCase() : inner.charAt(i).toLowerCase();
+          newMixCase += replaced;
+      }
+      return newMixCase;
+    });
 
     result = result.replace(upcasePattern, function (match, inner) {
       upcasePattern = /<upcase>(.*?)<\/upcase>$$/gi;
@@ -153,9 +154,8 @@ var newParser = function (string) {
   } else {
     throw new Error('Please specify string to parse;');
   }
-
-
 }
+
 console.log('Task 4');
 var testString = 'We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. ' +
 'We <mixcase>don\'t</mixcase> have <lowcase>anything</lowcase> else.';
@@ -163,8 +163,8 @@ var nested = '<upcase>yellow <lowcase>submarine</lowcase></upcase>';
 console.log(newParser(testString));
 console.log(newParser(nested));
 
-
 console.log('\n\n');
+
 
 // 5. Write a function that replaces non breaking white-spaces in a text with `&nbsp;`
 var testString = document.getElementById('test');
@@ -216,8 +216,9 @@ console.log(extractTextFromHTML(testString.value));
 console.log('\n\n');
 
 
-// 7. Write a script that parses an URL address given in the format: `[protocol]://[server]/[resource]` and extracts from it the `[protocol]`, `[server]` and `[resource]` elements. Return the elements in a JSON object.
-//     For example from the URL `http://www.tut.by/forum/index.php` the following information should be extracted:
+// 7. Write a script that parses an URL address given in the format: [protocol]://[server]/[resource] and
+// extracts from it the [protocol], [server] and [resource] elements. Return the elements in a JSON object.
+//     For example from the URL http://www.tut.by/forum/index.php the following information should be extracted:
 //     {
 //         protocol: "http",
 //         server: "www.tut.by",
