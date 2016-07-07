@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04 Functions</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <p>Task 1. FDS Create function conc which should concatenate two parameters a and b and return concatanating string using Function Declaration Statement (FDS). Call this function before its declaration. Test Data: a = “1”, b = “1”, result = “11” a = 1, b = 1, result = “11” </p>
+
+  <p>Task 2. FDE Create function comp which should compare two parameters a and b and return 1 if a equal b and -1 if a not equal b using Function Definition Expression (FDE). Call this function before its declaration. Test Data: a = “abc”, b = “abc”, result = 1 a = “abC”, b = “abc”, result = -1</p>
+
+  <p>Task 3. AF Create anonymous function which should log message “message in console” to the console and use it as a click handler for button.</p>
+
+  <p>Task 4. NFE Create function fibo to calculate fibonachi numbers using named function expression</p>
+
+  <p>Task 5. IIFE Make the function conc immediately-invoked function expression</p>
+
+  <p>Task 6. Arguments Object Create function parts which takes several parameters. Each parameter is a group of sentences. This function should extract the substring from the sign “:”(colon) to the sign “.”(period) of each parameter and return the array of this substrings Use Function Definition Expression. Test Data: param1 = "This is the first sentence. This is a sentence with a list of items: cherries, oranges, apples, bananas." param2 = "This is the second sentence. This is a sentence with a list of items: red, blue, yellow, black." result = [“cherries, oranges, apples, bananas”, “red, blue, yellow, black”]</p>
+
+  <p>Task 7. Optional Arguments Create function find(testString, test) which should return the position of test string in testString. If you don’t pass the second parameter use test = testString. Use Function Definition Expression. Test Data: testString = “abc”, test =”b”, result = 1 testString = “abc”, result = 0 testString = ”abc”, test = “d”, result = -1 testString = “abc”, test=”a”, test2=”b”, result = 0</p>
+
+  <p>Task 8. Function as an Object Create the function str which takes one parameter and alert(“String is non empty”) if string is non empty and alert(String is empty) otherwise. Use following funtion to check this condition. Create the function isNonEpmtyStr as a property of function str. This function takes one parameter and return true if its parameter is NonEmptyStr. Test Data: str.isNonEmptyStr(), result = false str.isNonEmptyStr(“”), result = false str.isNonEmptyStr(“a”), result = true str.isNonEmptyStr(1), result = false str(), alert(“String is empty”) str(“a”), alert(“String is non empty”)</p>
+
+  <p>Task 9. Function as a Parameter Create the function to Console with one parameter, which display the value of its parameter in console.log Create the function toAlert with one parameter, which display the value of its parameter using alert() Create the function splitToWords with two parameters: msg and callback. This function splits msg into words and using callback displays words in console or by alert. If the second parameter is omitted, return the array of words. Test Data: splitToWords("My very long text msg", toConsole);  result  My  very  long  text  msg splitToWords("My very long text msg", toAlert);
+  result = alert(My), …. console.log( splitToWords("My very long text msg") ); result = [“My”, “very”, “long”, “text”, “msg”]</p>
+
+  <p>Task 10. Function as a Result Create function copyright which return another function with one parameter. Returned function adds sign © (“\u00A9”) at the beginning of its parameter. Declare copyright sign in outer function. Test Data console.log( copyright()(“EPAM”) ); result = © EPAM.</p>
+
+  <p>Task 11. Function as a Method Create object literal Employee with the following properties: name: “Ann”, work – function which display message "I am "+ this.name +". I am working..." in console.log. Test Data Employee.work() result in console "I am Ann. I am working..."</p>
+
+<script type="text/javascript" src="../vendor/lodash/lodash.min.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+</body>
+</html>
