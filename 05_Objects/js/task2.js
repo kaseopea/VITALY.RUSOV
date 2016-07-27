@@ -196,6 +196,9 @@ var divInner = Object.create(domElement)
 var div = Object.create(domElement)
     .init('div')
     .addAttribute('style', 'border: 10px solid red; margin-top: 3em;')
+    .addAttribute('class', 'testclass')
+    //.removeAttribute('class')
+    //.removeAttribute('title')
     .appendChild(divInner);
 
 var divs = Object.create(domElement)
