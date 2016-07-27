@@ -75,13 +75,11 @@ var domElement = {
 
     // append child method ------------------------------------------------------------------------------------------
     appendChild: function(element) {
-        var parentEl = this; //head
-        var childEl = element; //meta
+        var parentEl = this;
+        var childEl = element;
 
         childEl.parent = parentEl;
         parentEl.children.push(childEl);
-
-        // todo: check if it is enough
 
         return this;
     },
@@ -193,7 +191,8 @@ console.log('\n\n');
 var divInner = Object.create(domElement)
     .init('div')
     .addAttribute('style', 'border: 5px solid green;');
-var div = Object.create(domElement)
+
+var div2 = Object.create(domElement)
     .init('div')
     .addAttribute('style', 'border: 10px solid red; margin-top: 3em;')
     .addAttribute('class', 'testclass')
@@ -203,6 +202,6 @@ var div = Object.create(domElement)
 
 var divs = Object.create(domElement)
     .init('div')
-    .appendChild(div);
+    .appendChild(div2);
 console.log(divs.innerHTML);
 //document.write(divs.innerHTML);
