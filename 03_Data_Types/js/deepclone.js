@@ -3,14 +3,16 @@
 
 Object.prototype.deepCopy = function (obj) {
 
+  if ((obj === null) || (obj === undefined) || (typeof obj !== 'object')) {
+    console.log('ok');
+    return obj;
+  }
+
   if (arguments.length > 0) {
-    if (_.isNil(obj)) {
-      return obj;
-    }
-    if (_.isObject(obj)) {
+
+    if (obj instanceof Object) {
         return almostDeepCopy(obj);
     } else {
-      //asume a primitive data type
       var clone = obj;
       return clone;
     }
@@ -20,23 +22,25 @@ Object.prototype.deepCopy = function (obj) {
   }
 
   // almost deep copy
-  function almostDeepCopy(original) {
-      var clone = Object.create(Object.getPrototypeOf(original));
-      var i, descriptor, keys = Object.getOwnPropertyNames(original);
+  function almostDeepCopy( original ) {
+      // First create an empty object with same prototype of our original source
+      var clone = Object.create( Object.getPrototypeOf( original ) ) ;
+      var i , descriptor , keys = Object.getOwnPropertyNames( original ) ;
 
-      for (i = 0 ; i < keys.length ; i++) {
-          descriptor = Object.getOwnPropertyDescriptor(original, keys[i]);
+      for ( i = 0 ; i < keys.length ; i ++ ) {
+          // Save the source's descriptor
+          descriptor = Object.getOwnPropertyDescriptor( original , keys[ i ] ) ;
           if ( descriptor.value && typeof descriptor.value === 'object' ) {
-              descriptor.value = almostDeepCopy(descriptor.value);
+              // If the value is an object, recursively deepCopy() it
+              descriptor.value = almostDeepCopy( descriptor.value ) ;
           }
-          Object.defineProperty(clone, keys[i], descriptor);
-      }
-      return clone;
-  }
-}
 
-// tests ------------------------------------------------------------------------------------------------------
-console.log('\n\nTask 3');
+          Object.defineProperty( clone , keys[ i ] , descriptor ) ;
+      }
+      return clone ;
+  }
+  // return clone;
+}
 
 //reference types
 var varObject = {
@@ -57,46 +61,46 @@ var varFunction = function () {
 
 var cloneArray = Object.deepCopy(varArray);
 varArray[2] = 7770;
-console.log(varArray);
-console.log(cloneArray);
+// console.log(varArray);
+// console.log(cloneArray);
 
-console.log(Object.deepCopy(varArray));
-console.log(Object.deepCopy(varFunction));
+// console.log(Object.deepCopy(varArray));
+// console.log(Object.deepCopy(varFunction));
 var cloneObj = Object.deepCopy(varObject);
 varObject.age = 50;
-console.log(varObject);
-console.log(cloneObj);
+// console.log(varObject);
+// console.log(cloneObj);
 
-primitives
-var varBoolean = true;
-var varNull = null;
-var varUndefined = undefined;
-var varNaN = NaN;
-var varNumber = 77;
-var varString = 'Hello world!';
-
-var newBoolean = Object.deepCopy(varBoolean);
-var newNull = Object.deepCopy(varNull);
-var newUndefined = Object.deepCopy(varUndefined);
-var newNumber = Object.deepCopy(varNumber); //includes NaN
-var newString = Object.deepCopy(varString);
-
-console.log('------------------------------------');
-varBoolean = false;
-console.log(varBoolean);
-console.log(newBoolean);
-console.log('------------------------------------');
-varNull = 1;
-console.log(newNull);
-console.log('------------------------------------');
-varUndefined = 1;
-console.log(newUndefined);
-console.log('------------------------------------');
-varNumber = 88;
-console.log(varNumber);
-console.log(newNumber);
-console.log('------------------------------------');
-varString = 'Bye-Bye!';
-console.log(varString);
-console.log(newString);
-console.log('------------------------------------');
+//primitives
+// var varBoolean = true;
+// var varNull = null;
+// var varUndefined = undefined;
+// var varNaN = NaN;
+// var varNumber = 77;
+// var varString = 'Hello world!';
+//
+// var newBoolean = Object.deepCopy(varBoolean);
+// var newNull = Object.deepCopy(varNull);
+// var newUndefined = Object.deepCopy(varUndefined);
+// var newNumber = Object.deepCopy(varNumber); //includes NaN
+// var newString = Object.deepCopy(varString);
+//
+// // console.log('------------------------------------');
+// // varBoolean = false;
+// // console.log(varBoolean);
+// // console.log(newBoolean);
+// // console.log('------------------------------------');
+// // varNull = 1;
+// // console.log(newNull);
+// // console.log('------------------------------------');
+// // varUndefined = 1;
+// // console.log(newUndefined);
+// // console.log('------------------------------------');
+// // varNumber = 88;
+// // console.log(varNumber);
+// // console.log(newNumber);
+// // console.log('------------------------------------');
+// // varString = 'Bye-Bye!';
+// // console.log(varString);
+// // console.log(newString);
+// // console.log('------------------------------------');
