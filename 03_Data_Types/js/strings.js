@@ -2,22 +2,25 @@
 //
 // 1. Write a JavaScript function reverses string and returns it
 //     * Example: "sample" -> "elpmas".
+
 var reversByChar = function(string) {
   var reversed = '';
-  if (typeof string === 'string') {
-    for ( var char = string.length - 1; char >= 0; char--) {
+  var char;
+
+  if (_.isString(string)) {
+    for (char = string.length - 1; char >= 0; char--) {
       reversed += string.charAt(char);
     }
     return reversed;
   } else {
-    throw new Error('Please, specify input string');
+    throw new Error('Please, specify input string.');
   }
 
 }
 
 var reversString = function(string) {
   var str = string || '';
-  if (typeof string === 'string') {
+  if (_.isString(string)) {
     return string.split('').reverse().join('');
   } else {
     throw new Error('Please, specify input string');
@@ -28,6 +31,7 @@ console.log(reversString('sample'));
 console.log(reversString('correct expression'));
 // console.log(reversString());
 // console.log(reversString(5));
+console.log(reversString(''));
 console.log(reversByChar('sample'));
 console.log(reversByChar('correct expression'));
 // console.log(reversByChar());
@@ -35,21 +39,19 @@ console.log(reversByChar('correct expression'));
 
 console.log('\n\n');
 
+
 // 2. Write a JavaScript function to check if in a given expression the brackets are put correctly.
 //     * Example of correct expression: `((a+b)/5-d)`.
 //     * Example of incorrect expression: `)(a+b))`.
 
-var expression1 = '((a+b)/5-d)';
-var expression2 = ')(a+b))';
-
 var checkBrackets = function(expression) {
   var brackets = 0;
-  if (typeof expression === 'string') {
+  if (_.isString(expression) && (expression !== '')) {
     for (var i = 0 ; i < expression.length; i++ ) {
-      if ( expression.charAt(i) == '(') {
+      if (expression.charAt(i) === '(') {
         brackets++;
       }
-      if ( expression.charAt(i) == ')') {
+      if (expression.charAt(i) === ')') {
         brackets--;
       }
       if (brackets < 0) {
@@ -66,12 +68,18 @@ var checkBrackets = function(expression) {
   }
 }
 console.log('Task 2');
+var expression1 = '((a+b)/5-d)';
+var expression2 = ')(a+b))';
+
 var result1 = (checkBrackets(expression1)) ? 'correct' : 'incorrect';
 var result2 = (checkBrackets(expression2)) ? 'correct' : 'incorrect';
+
 console.log('((a+b)/5-d) is ' + result1);
 console.log(')(a+b)) is ' +  result2);
+
 // console.log(checkBrackets());
 // console.log(checkBrackets(10));
+// console.log(checkBrackets(''));
 
 console.log('\n\n');
 
@@ -81,13 +89,16 @@ console.log('\n\n');
 //     The result is: 9.
 
 var testString = 'We are liv<b>in</b>g **in** an yellow submar<b>in</b>e. We don\'t have anyth<b>in</b>g else. **In**side the submar<b>in</b>e is very tight. So we are dr<b>in</b>k<b>in</b>g all the day. We will move out of it **in** 5 days.';
+
 var searchTimesString = function(search, string) {
-  if ((typeof search === 'string') && (typeof string === 'string')) {
-    var pattern = new RegExp(search.toString(), 'gi');
-    var count = (string.match(pattern)|| []).length;
+  var pattern;
+  var count;
+  if (_.isString(search) && _.isString(string)) {
+    pattern = new RegExp(search.toString(), 'gi');
+    count = (string.match(pattern) || []).length;
     return count;
   } else {
-    throw new Error('Please, specify correct input');
+    throw new Error('Please, specify correct input strings.');
   }
 
 }
@@ -109,61 +120,59 @@ console.log('\n\n');
 //     The expected result: `We are LiVinG in a YELLOW SUBMARINE. We dOn'T have anything else.`
 //     Regions can be nested.
 
-var testString = 'We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. We <mixcase>don\'t</mixcase> have <lowcase>anything</lowcase> else.';
-var nested = '<upcase><lowcase>yellow submarine</lowcase></upcase>';
+var newParser = function (string) {
+  var result = string || '';
+  var mixcasePattern = /<mixcase>(.*?)<\/mixcase>/gi;
+  var upcasePattern = /<upcase>(.*?)<\/upcase>/gi;
+  var lowcasePattern = /<lowcase>(.*?)<\/lowcase>/gi;
 
-var parseString = function(string) {
+  if(_.isString(result)) {
 
-  if (typeof string == 'string') {
-    var result = string;
-
-    // regular expressions
-    var mixcasePattern = /<mixcase>(.*?)<\/mixcase>/gi;
-    var upcasePattern = /<upcase>(.*?)<\/upcase>/gi;
-    var lowcasePattern = /<lowcase>(.*?)<\/lowcase>/gi;
-
-    // uppercase
-    result = result.replace(upcasePattern, function (match) {
-      var pattern = /<upcase>|<\/upcase>/g;
-      return match.replace(pattern,'').toUpperCase();
-    });
-
-    // lowercase
-    result = result.replace(lowcasePattern, function (match) {
-      var pattern = /<lowcase>|<\/lowcase>/g;
-      return match.replace(pattern,'').toLowerCase();
-    });
-
-    //replace using an anonymous function for random upper/lower case
-    result = result.replace(mixcasePattern, function (match) {
-      // console.log(match);
-      for ( var i = 0; i < match.length; i++) {
-        var upperOrLower = Math.round(Math.random());
-        var replaced = (upperOrLower) ? match[i].toUpperCase() : match[i].toLowerCase();
-        match = match.replace(match[i], replaced);
+    result = result.replace(mixcasePattern, function (match, inner) {
+      var newMixCase = '';
+      var upperOrLower;
+      var replaced;
+      var i;
+      for (i = 0; i < inner.length; i++) {
+          upperOrLower = Math.round(Math.random());
+          replaced = (upperOrLower) ? inner.charAt(i).toUpperCase() : inner.charAt(i).toLowerCase();
+          newMixCase += replaced;
       }
-      var pattern = /<mixcase>|<\/mixcase>/gi;
-      return match.replace(pattern,'');
+      return newMixCase;
     });
 
+    result = result.replace(upcasePattern, function (match, inner) {
+      upcasePattern = /<upcase>(.*?)<\/upcase>$$/gi;
+      match = match.replace(upcasePattern, inner.toUpperCase());
+      return inner.toUpperCase();
+    });
+    result = result.replace(lowcasePattern, function (match, inner) {
+      match = match.replace(lowcasePattern, inner.toLowerCase());
+      return inner.toLowerCase();
+    });
     return result;
   } else {
-    throw new Error('No correct input data.');
+    throw new Error('Please specify string to parse;');
   }
 }
+
 console.log('Task 4');
-console.log(parseString(testString));
-console.log(parseString(nested));
-// console.log(parseString());
+var testString = 'We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>. ' +
+'We <mixcase>don\'t</mixcase> have <lowcase>anything</lowcase> else.';
+var nested = '<upcase>yellow <lowcase>submarine</lowcase></upcase>';
+console.log(newParser(testString));
+console.log(newParser(nested));
 
 console.log('\n\n');
+
 
 // 5. Write a function that replaces non breaking white-spaces in a text with `&nbsp;`
 var testString = document.getElementById('test');
 
 var processWhitespaces = function(string) {
-  if ( typeof string === 'string') {
-    var pattern = /\s{1,}/g;
+  var pattern;
+  if ( _.isString(string)) {
+    pattern = /\s{1,}/g;
     return string.replace(pattern, '&nbsp;');
   } else {
     throw new Error('Incorrect input data.');
@@ -174,8 +183,8 @@ console.log(processWhitespaces(testString.innerHTML));
 
 console.log('\n\n');
 
-// 6. Write a function that extracts the content of a html page given as text. The function should return anything that is in a tag, without the tags:
-//     ```html
+// 6. Write a function that extracts the content of a html page given as text.
+// The function should return anything that is in a tag, without the tags:
 //     <html>
 //         <head>
 //             <title>Sample site</title>
@@ -203,10 +212,13 @@ var extractTextFromHTML = function(string) {
 console.log('Task 6');
 console.log(extractTextFromHTML(testString.value));
 
+
 console.log('\n\n');
 
-// 7. Write a script that parses an URL address given in the format: `[protocol]://[server]/[resource]` and extracts from it the `[protocol]`, `[server]` and `[resource]` elements. Return the elements in a JSON object.
-//     For example from the URL `http://www.tut.by/forum/index.php` the following information should be extracted:
+
+// 7. Write a script that parses an URL address given in the format: [protocol]://[server]/[resource] and
+// extracts from it the [protocol], [server] and [resource] elements. Return the elements in a JSON object.
+//     For example from the URL http://www.tut.by/forum/index.php the following information should be extracted:
 //     {
 //         protocol: "http",
 //         server: "www.tut.by",
@@ -230,7 +242,7 @@ var createUrlObject = function(url) {
 
   protocolMatch = url.match(/(.*):\/\//);
   serverMatch = url.match(/:\/\/(.*?)\//);
-  resourceMatch = url.match(/[a-zA-Z](\/.*?)/); //correct regex
+  resourceMatch = url.match(/[a-zA-Z](\/.*)/);
 
   parsed.protocol = (protocolMatch) ? protocolMatch[1] : '';
   parsed.server = (serverMatch) ? serverMatch[1] : '';
@@ -246,5 +258,4 @@ console.log(createUrlObject());
 console.log(createUrlObject('http://www.tut.by/forum/index.php'));
 console.log(createUrlObject('http://tut.by/forum/index.php'));
 console.log(createUrlObject('http://tut.by/forum/index.php?param=true'));
-console.log(createUrlObject('ftp://ftp.is.co.za/rfc/rfc1808.txt'));
-console.log(createUrlObject('ldap://[2001:db8::7]/c=GB?objectClass?one')); // not passed, correct regex
+console.log(createUrlObject('ftp://ftp.is.to.com/docs/data1788.txt'));
