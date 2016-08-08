@@ -1,0 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,600);
+
+/*
+== General styles
+====================================================================================
+*/
+body {
+	padding-top: 2em;
+}
+
+/*
+== Header styles
+====================================================================================
+*/
+.logo span {
+	color: red;
+}
+
+
+/*
+== Todo List
+====================================================================================
+*/
+.todolist {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+
+.todolist .checkbox {
+	font-size: 110%;
+	display: inline;
+	outline: none;
+	margin-right: 15px;
+	position: relative;
+	top: -3px;
+}
+
+.todolist label {
+	font-weight: normal;
+}
+
+/*
+== Buttons
+====================================================================================
+*/
+
+.delete-button {
+	background-color: #e74c3c;
+	color: #fff;
+	border-color: #bf3e31;
+}
+
+/*
+== Helpers
+====================================================================================
+*/
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}

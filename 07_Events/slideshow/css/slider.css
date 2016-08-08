@@ -1,0 +1,59 @@
+/*
+== General styles
+====================================================================================
+*/
+.slider {
+	position: relative;
+	overflow: hidden;
+	border: 10px solid yellow;
+	width: 960px;
+	height: 400px;
+	background-color: #000;
+}
+
+.slider .slider-container {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 400px;
+}
+
+.slider .slider-item {
+	width: 960px;
+	height: 400px;
+}
+
+/*
+== Navigation
+====================================================================================
+*/
+.slider .slider-navi {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.slider .slider-navi .navi-left, .slider .slider-navi .navi-right {
+	height: 100%;
+	width: 150px;
+	position: absolute;
+	top: 0;
+	cursor: pointer;
+}
+.slider .slider-navi .navi-left {
+	left: 0;
+}
+.slider .slider-navi .navi-right {
+	right: 0;
+}
+
+
+.slider .slider-navi .navi-left:hover {
+	background: rgba(256,256,256, .2) url('../images/arrow-left.png') no-repeat center center;
+}
+
+.slider .slider-navi .navi-right:hover {
+	background: rgba(256,256,256, .2) url('../images/arrow-right.png') no-repeat center center;
+}
