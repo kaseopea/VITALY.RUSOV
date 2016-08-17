@@ -3,7 +3,6 @@
 
 (function () {
 
-
     var options = {
         guessInputID: 'guess-input',
         guessBtnID: 'guess-btn',
