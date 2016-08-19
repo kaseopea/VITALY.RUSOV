@@ -25,8 +25,9 @@
     var playerStorage = localStorage;
     var secret = generateSecret();
     var turns = [];
+    var storageData = getUserData();
     var userObj = {
-        nickname: playerStorage.getItem('nickname') || null,
+        nickname: storageData.nickname || null,
         score: 0
     };
     var nickname, score = 0;
@@ -51,6 +52,7 @@
     var guessBtn = document.getElementById(options.guessBtnID);
     var guessForm = document.getElementById(options.guessFormID);
     var turnsList = document.getElementById(options.turnsListID);
+    var secretBlock = document.getElementById(options.secretID);
     var digit1 = document.getElementById(options.digit1ID);
     var digit2 = document.getElementById(options.digit2ID);
     var digit3 = document.getElementById(options.digit3ID);
@@ -64,14 +66,14 @@
     var winnerScore = document.getElementById(options.winnerScoreID);
     var greeting = document.getElementById(options.greetingID);
 
-    // console.log(secret);
+    console.log(secret);
 
     //EVENTS
     //==============================================================================================================
 
-    if (playerStorage.getItem('nickname')) {
+    if (userObj.nickname) {
         var greet = document.createElement('span');
-        greet.innerText = 'Hello, ' + playerStorage.getItem('nickname') + '! ';
+        greet.innerText = 'Hello, ' + userObj.nickname + '! ';
         greeting.insertBefore(greet, greeting.firstChild);
     }
 
@@ -160,13 +162,16 @@
                     userObj.score = calcScore(turns, timeSpend);
                     winnerScore.innerText = userObj.score;
 
+                    // visual changes
                     turnsList.classList.add('none');
                     guessForm.classList.add('none');
                     winnerForm.classList.remove('none');
+                    greeting.classList.add('none');
+                    secretBlock.classList.add('none');
 
-                    if (playerStorage.getItem('nickname')) {
-                        winnerInput.value = playerStorage.getItem('nickname');
 
+                    if (userObj.nickname) {
+                        winnerInput.value = userObj.nickname;
                     }
                     winnerInput.focus();
 
@@ -193,7 +198,7 @@
             userObj.nickname = winnerInput.value;
 
             //saving results to local storage
-            saveResults(userObj.nickname, userObj.score);
+            saveUserData(userObj.nickname, userObj.score);
 
             // add player to highscore list and sort
             highScores.push(userObj);
@@ -245,13 +250,26 @@
 
     // LocalStorage actions
     //==============================================================================================================
-    function saveResults(nickname, score) {
+    function getUserData() {
+        if (Modernizr.localstorage) {
+            return {
+                nickname: playerStorage.getItem('nickname'),
+                score: playerStorage.getItem('score')
+            }
+        } else {
+            // localStorage not supported
+            // Implement alternative
+            return false;
+        }
+    }
+    function saveUserData(nickname, score) {
         if (Modernizr.localstorage) {
             playerStorage.setItem('nickname', nickname);
             playerStorage.setItem('score', score);
 
         } else {
             // localStorage not supported
+            // Implement alternative
             return false;
         }
     }
