@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+}
+
+.pic-holder {
+    border: 5px solid #eee;
+    display: block;
+    text-align: center;
+    margin: 2em auto;
+}
