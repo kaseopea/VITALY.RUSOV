@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[06 DOM] Task 1</title>
+    <link rel="stylesheet" href="css/task1.css">
+</head>
+<body>
+
+<h1>Task 1.1</h1>
+
+<!-- Example markup -->
+<div class="div1">
+    <div class="div11"></div>
+</div>
+
+<div class="div2">
+    <h1>
+        <div class="div3">
+            <div class="div4"></div>
+            <div class="div5">
+                <div class="div6"></div>
+            </div>
+        </div>
+    </h1>
+</div>
+
+<textarea class="textarea" readonly>
+<div class="div1">
+    <div class="div11"></div>
+</div>
+
+<div class="div2">
+    <h1>
+        <div class="div3">
+            <div class="div4"></div>
+            <div class="div5">
+                <div class="div6"></div>
+            </div>
+        </div>
+
+    </h1>
+</div>
+</textarea>
+<!-- Example markup -->
+<div>
+    <small>* textarea is readonly</small>
+</div>
+<div class="actions">
+    <button class="btn" onclick="countDivInsideDiv1()">Calculate with querySelectorAll()</button>
+    <button class="btn" onclick="countDivInsideDiv2()">Calculate with getElementsByTagName()</button>
+</div>
+
+<div class="result" id="result1">
+    Calculate with querySelectorAll(): <span></span>
+</div>
+<div class="result" id="result2">
+    Calculate with getElementsByTagName(): <span></span>
+</div>
+
+<hr>
+
+<h1>Task 1.2</h1>
+<input type="text" class="input" name="input" id="typeInput">
+<div class="actions">
+    <button class="btn" onclick="printToConsole()">Print to console</button>
+</div>
+
+<hr>
+
+<h1>Task 1.3</h1>
+<p>Select background color: <input type="color" id="colorpicker" onchange="changeBgColor(this)"></p>
+
+
+
+<script src="../vendor/lodash/lodash.min.js"></script>
+<script src="js/task1_1.js"></script>
+<script src="js/task1_2.js"></script>
+<script src="js/task1_3.js"></script>
+</body>
+</html>
