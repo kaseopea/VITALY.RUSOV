@@ -66,7 +66,7 @@
     var winnerScore = document.getElementById(options.winnerScoreID);
     var greeting = document.getElementById(options.greetingID);
 
-    console.log(secret);
+    // console.log(secret);
 
     //EVENTS
     //==============================================================================================================
@@ -393,12 +393,15 @@
     // Secret Number Generator
     //==============================================================================================================
     function generateSecret() {
-        var digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        digits.sort(function () {
-            return Math.random() - 0.5
-        });
+        var digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-        return '0' + digits.slice(0, 3).join('');
+        while(digits[0] === 0) {
+            digits.sort(function () {
+                return Math.random() - 0.5
+            });
+        }
+
+        return digits.slice(0, 4).join('');
     }
 
     // Sheeps and Rams Counter
